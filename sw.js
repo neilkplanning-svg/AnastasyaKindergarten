@@ -1,5 +1,5 @@
 /* שעת נחת – service worker: עובד גם בלי רשת, ומתעדכן ברקע */
-const CACHE = 'nachat-v1';
+const CACHE = 'nachat-v2';
 const ASSETS = [
   './', 'index.html', 'styles.css', 'app.js', 'config.js', 'manifest.webmanifest',
   'icons/favicon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'

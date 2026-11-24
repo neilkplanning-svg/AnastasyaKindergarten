@@ -15,14 +15,34 @@
   var ltr = function (s) { return '\u2066' + s + '\u2069'; };
   var range = function (a, b) { return ltr(hhmm(a) + '–' + hhmm(b)); };
   var waLink = function (text) { return 'https://wa.me/' + cfg.whatsapp + '?text=' + encodeURIComponent(text); };
-  var closed = {};
-  (cfg.closedDates || []).forEach(function (d) { closed[d] = true; });
 
-  /* ---------- slots ---------- */
+  /* ---------- schedule: weekly hours + date exceptions ---------- */
+  // weekly[0..6] = { open, start, end }; exceptions['YYYY-MM-DD'] = { open, start, end }
+  var weekly = [];
+  for (var w = 0; w < 7; w++) {
+    weekly.push({ open: cfg.openDays.indexOf(w) !== -1, start: cfg.hours.start, end: cfg.hours.end });
+  }
+  var exceptions = {};
+  (cfg.closedDates || []).forEach(function (d) { exceptions[d] = { open: false }; });
+
+  function dayHours(date) {
+    var ex = exceptions[ymd(date)];
+    if (ex) {
+      if (!ex.open) return null;
+      var base = weekly[date.getDay()];
+      var st = ex.start != null ? ex.start : base.start, en = ex.end != null ? ex.end : base.end;
+      return st < en ? { start: st, end: en } : null;
+    }
+    var wk = weekly[date.getDay()];
+    return wk.open && wk.start < wk.end ? { start: wk.start, end: wk.end } : null;
+  }
+
   function slotsFor(date, now) {
+    var hrs = dayHours(date);
+    if (!hrs) return [];
     var out = [];
     for (var dur = 1; dur <= cfg.maxHours; dur++) {
-      for (var h = cfg.hours.start; h + dur <= cfg.hours.end; h++) {
+      for (var h = hrs.start; h + dur <= hrs.end; h++) {
         var startAt = new Date(date.getFullYear(), date.getMonth(), date.getDate(), h, 0, 0);
         if (startAt - now < cfg.minNoticeMinutes * 60000) continue;
         var price = cfg.prices[dur];
@@ -38,8 +58,6 @@
     var base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     for (var i = 0; i < cfg.bookAheadDays; i++) {
       var d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
-      if (cfg.openDays.indexOf(d.getDay()) === -1) continue;
-      if (closed[ymd(d)]) continue;
       if (!slotsFor(d, now).length) continue;
       list.push({ date: d, key: ymd(d), offset: i });
     }
@@ -47,12 +65,75 @@
   }
 
   function dayRange() {
-    var ds = cfg.openDays.slice().sort();
+    var ds = [];
+    weekly.forEach(function (wk, i) { if (wk.open) ds.push(i); });
+    if (!ds.length) return 'בתיאום מראש';
     var contiguous = ds.every(function (v, i) { return i === 0 || v === ds[i - 1] + 1; });
     if (contiguous && ds.length > 2) return 'ימים ' + WD_S[ds[0]] + '–' + WD_S[ds[ds.length - 1]];
     return 'ימים ' + ds.map(function (d) { return WD_S[d]; }).join(', ');
   }
-  var hoursText = range(cfg.hours.start, cfg.hours.end);
+  function hoursSummary() {
+    var open = weekly.filter(function (wk) { return wk.open; });
+    if (!open.length) return 'בבקרים';
+    var same = open.every(function (wk) { return wk.start === open[0].start && wk.end === open[0].end; });
+    return same ? range(open[0].start, open[0].end) : 'שעות משתנות לפי היום';
+  }
+
+  /* ---------- Google Sheet (gviz JSONP, no backend) ---------- */
+  function gviz(gid) {
+    return new Promise(function (resolve, reject) {
+      var cb = '__nachat' + gid + '_' + Date.now();
+      var s = document.createElement('script');
+      var timer = setTimeout(function () { done(); reject(new Error('timeout')); }, 7000);
+      function done() { clearTimeout(timer); try { delete window[cb]; } catch (e) { window[cb] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); }
+      window[cb] = function (res) { done(); res && res.status !== 'error' ? resolve(res.table) : reject(new Error('sheet')); };
+      s.onerror = function () { done(); reject(new Error('load')); };
+      s.src = 'https://docs.google.com/spreadsheets/d/' + cfg.scheduleSheetId + '/gviz/tq?gid=' + gid +
+        '&headers=1&tqx=' + encodeURIComponent('out:json;responseHandler:' + cb) + '&_=' + Date.now();
+      document.head.appendChild(s);
+    });
+  }
+  function cellV(row, i) { var c = row && row.c && row.c[i]; return c ? c.v : null; }
+  function toHour(v) {
+    if (v == null || v === '') return null;
+    if (Array.isArray(v)) return v[0];
+    if (typeof v === 'number') return v < 1 ? Math.round(v * 24) : Math.floor(v);
+    var m = String(v).match(/(\d{1,2})/);
+    return m ? parseInt(m[1], 10) : null;
+  }
+  function toBool(v) { return v === true || v === 'TRUE' || v === 'true' || v === 'כן' || v === 'V' || v === 'v'; }
+  function toYmd(v) {
+    if (v == null) return null;
+    var m = String(v).match(/Date\((\d+),(\d+),(\d+)/);
+    if (m) return m[1] + '-' + pad(+m[2] + 1) + '-' + pad(+m[3]);
+    m = String(v).match(/^(\d{1,2})[\/.](\d{1,2})[\/.](\d{4})$/);
+    if (m) return m[3] + '-' + pad(+m[2]) + '-' + pad(+m[1]);
+    m = String(v).match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? m[0] : null;
+  }
+  function validHours(a, b) { return a != null && b != null && a >= 0 && b <= 24 && a < b; }
+
+  function applySheet(weekTable, exTable) {
+    if (weekTable && weekTable.rows && weekTable.rows.length) {
+      weekTable.rows.forEach(function (r, i) {
+        var name = String(cellV(r, 0) || '').trim();
+        var idx = WD.indexOf(name);
+        if (idx === -1) idx = i;
+        if (idx > 6) return;
+        var st = toHour(cellV(r, 2)), en = toHour(cellV(r, 3));
+        weekly[idx] = { open: toBool(cellV(r, 1)) && validHours(st, en), start: st, end: en };
+      });
+    }
+    if (exTable && exTable.rows) {
+      exTable.rows.forEach(function (r) {
+        var key = toYmd(cellV(r, 0));
+        if (!key) return;
+        var open = toBool(cellV(r, 1));
+        var st = toHour(cellV(r, 2)), en = toHour(cellV(r, 3));
+        exceptions[key] = open ? { open: true, start: st, end: en } : { open: false };
+      });
+    }
+  }
 
   /* ---------- static fill ---------- */
   document.querySelectorAll('[data-cfg]').forEach(function (el) {
@@ -62,9 +143,12 @@
   document.querySelectorAll('[data-wa="general"]').forEach(function (a) {
     a.href = waLink('היי ' + cfg.ownerName + ', אשמח לשמוע על ' + cfg.businessName);
   });
-  $('f-hours').textContent = hoursText;
-  $('f-days').textContent = dayRange();
-  $('foot-hours').textContent = dayRange() + ', ' + hoursText;
+  function renderHoursText() {
+    $('f-hours').textContent = hoursSummary();
+    $('f-days').textContent = dayRange();
+    $('foot-hours').textContent = dayRange() + ', ' + hoursSummary();
+  }
+  renderHoursText();
   $('p1').textContent = cfg.prices[1];
   if (cfg.prices[2]) {
     $('p2').textContent = cfg.prices[2];
@@ -274,7 +358,15 @@
     toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
   }
 
-  renderDays();
+  if (cfg.scheduleSheetId) {
+    daysEl.innerHTML = '<p class="slots-empty">טוען ימים פנויים…</p>';
+    Promise.all([gviz(0).catch(function () { return null; }), gviz(1).catch(function () { return null; })])
+      .then(function (t) { applySheet(t[0], t[1]); })
+      .catch(function () { /* fall back to config */ })
+      .then(function () { renderHoursText(); renderDays(); });
+  } else {
+    renderDays();
+  }
 
   /* ---------- mobile dock ---------- */
   var dock = $('dock');
@@ -316,5 +408,5 @@
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
 
-  window.__nachat = { slotsFor: slotsFor, openDays: openDays, buildMessage: buildMessage };
+  window.__nachat = { slotsFor: slotsFor, openDays: openDays, buildMessage: buildMessage, applySheet: applySheet, weekly: weekly, exceptions: exceptions };
 })();
