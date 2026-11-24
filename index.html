@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>שעת נחת · עובדים בנחת, התינוק קרוב · חריש</title>
+<meta name="description" content="שמרטפות לתינוקות בגילאי 3 עד 12 חודשים בחריש, בזמן שאתם עובדים לידם. WiFi, קפה ומים חופשי. שעה ב-70 ₪, שעתיים ב-120 ₪.">
+<meta name="theme-color" content="#12505a">
+<meta property="og:title" content="שעת נחת · עובדים בנחת, התינוק קרוב">
+<meta property="og:description" content="שמרטפות לתינוקות בני 3 עד 12 חודשים בחריש, בזמן שאתם עובדים לידם. ימים א׳–ה׳ בבקרים.">
+<meta property="og:image" content="icons/og-image.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="שעת נחת">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="config.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#book">דילוג לשריון מקום</a>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="#top" aria-label="שעת נחת – לראש העמוד">
+      <svg class="mark" viewBox="0 0 200 200" aria-hidden="true"><use href="#logo"></use></svg>
+      <span>שעת נחת</span>
+    </a>
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#how">איך זה עובד</a>
+      <a href="#prices">מחירים</a>
+      <a href="#faq">שאלות</a>
+    </nav>
+    <a class="btn btn-teal btn-sm" href="#book">לשריון מקום</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">שמרטפות + עבודה מהבית · <span data-cfg="city">חריש</span></p>
+        <h1>אתם עובדים בנחת. התינוק קרוב, מושגח ומאושר.</h1>
+        <p class="lead">באים לעבוד אצלי בבית עם WiFi מהיר, קפה ומים חופשי, ואני משגיחה על הקטנטנים קרוב אליכם. רוצים לחבק או להניק? אתם כאן. לא רוצים לעצור את העבודה? אני אתן בקבוק.</p>
+        <div class="hero-cta">
+          <a class="btn btn-sun btn-lg" href="#book">לשריון מקום</a>
+          <a class="btn btn-ghost btn-lg" data-wa="general" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>שאלה בוואטסאפ
+          </a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 420 380">
+          <circle cx="210" cy="190" r="170" fill="#1b6470"></circle>
+          <circle cx="210" cy="190" r="126" fill="#f4b728"></circle>
+          <g transform="translate(110 92) scale(1)">
+            <polyline points="50,40 100,0 150,40" fill="none" stroke="#12505a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <rect x="32" y="58" width="136" height="114" rx="22" fill="#12505a"></rect>
+            <path d="M168 82 h10 a31 31 0 0 1 0 62 h-10" fill="none" stroke="#12505a" stroke-width="16"></path>
+            <path d="M100 144 C70 124 73 98 88 98 C95 98 100 104 100 109 C100 104 105 98 112 98 C127 98 130 124 100 144 Z" fill="#fffdf7"></path>
+          </g>
+          <rect x="34" y="286" width="48" height="48" rx="9" fill="#fffdf7"></rect>
+          <rect x="66" y="250" width="38" height="38" rx="8" fill="#f4b728" stroke="#12505a" stroke-width="4"></rect>
+          <circle cx="366" cy="300" r="28" fill="#fffdf7"></circle>
+          <circle cx="366" cy="300" r="10" fill="#12505a"></circle>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="בקצרה">
+    <ul class="wrap facts-row">
+      <li><strong><bdi dir="ltr">3–12</bdi> חודשים</strong><span>גילאי התינוקות</span></li>
+      <li><strong>עד 3 תינוקות</strong><span>בכל פעם</span></li>
+      <li><strong id="f-hours"><bdi dir="ltr">10:00–12:00</bdi></strong><span id="f-days">ימים א׳–ה׳</span></li>
+      <li><strong>בלי התחייבות</strong><span>מזמינים כשצריך</span></li>
+    </ul>
+  </section>
+
+  <section id="how" class="band">
+    <div class="wrap">
+      <h2>איך זה עובד</h2>
+      <ol class="steps">
+        <li>
+          <span class="num">1</span>
+          <h3>שולחים בקשה</h3>
+          <p>בוחרים יום ושעות בטופס למטה. הבקשה נפתחת בוואטסאפ, מוכנה לשליחה.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>מקבלים אישור</h3>
+          <p>אני מאשרת לפי מקום פנוי ומשלמים בביט או בפייבוקס. בביקור הראשון משלמים בסוף.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>באים, עובדים, נושמים</h3>
+          <p>פותחים מחשב עם קפה, והתינוק משחק קרוב אליכם בחברת תינוקות אחרים.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band band-white">
+    <div class="wrap split">
+      <div>
+        <h2>מה מחכה לכם</h2>
+        <ul class="features">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wifi"></use></svg><div><strong>WiFi מהיר</strong><span>מקום נוח לשבת עם מחשב.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cup"></use></svg><div><strong>קפה ומים חופשי</strong><span>כל עוד אתם כאן.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-heart"></use></svg><div><strong>התינוק קרוב אליכם</strong><span>קופצים לחיבוק או להנקה מתי שרוצים, וחוזרים לעבודה.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bottle"></use></svg><div><strong>לא רוצים לעצור? אני אתן בקבוק</strong><span>משאירים לי בקבוק מוכן, ואני מאכילה בזמן שאתם עובדים.</span></div></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-friends"></use></svg><div><strong>חברה של תינוקות אחרים</strong><span>עד 3 תינוקות בכל פעם, כל אחד מקבל יחס אישי.</span></div></li>
+        </ul>
+      </div>
+      <aside class="note-card">
+        <h3>מה להביא</h3>
+        <p>אוכל ובקבוקים לתינוק, חיתולים ומגבונים, בגדים להחלפה, מוצץ או שמיכי אם יש. ואת המחשב, כמובן.</p>
+        <h3>כמה כללים</h3>
+        <ul class="rules">
+          <li>התשלום מראש, עם אישור ההזמנה. <b>בביקור הראשון משלמים בסוף.</b></li>
+          <li>ביטול ללא חיוב עד <span data-cfg="cancelHours">18</span> שעות לפני הביקור.</li>
+          <li>תינוק עם חום או מחלה נשאר בבית.</li>
+          <li>לפני הביקור הראשון ממלאים כרטיס היכרות קצר: שינה, אוכל, אלרגיות.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section id="gallery" class="band" hidden>
+    <div class="wrap">
+      <h2>הצצה לבית</h2>
+      <div class="gallery" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <section id="prices" class="band">
+    <div class="wrap">
+      <h2>מחירים</h2>
+      <div class="price-grid">
+        <article class="price">
+          <h3>שעה אחת</h3>
+          <p class="amount"><span id="p1">70</span> ₪</p>
+          <p class="per">לשעה, לתינוק</p>
+        </article>
+        <article class="price price-best">
+          <span class="badge">משתלם יותר</span>
+          <h3>שעתיים רצופות</h3>
+          <p class="amount"><span id="p2h">60</span> ₪ <small>לשעה</small></p>
+          <p class="per">סה״כ <span id="p2">120</span> ₪, לתינוק</p>
+        </article>
+      </div>
+      <p class="muted">עד שעתיים בכל ביקור. הקפה והמים עליי.</p>
+    </div>
+  </section>
+
+  <section id="book" class="book" aria-labelledby="book-title">
+    <div class="wrap book-wrap">
+      <div class="book-head">
+        <h2 id="book-title">שריון מקום</h2>
+        <p>בוחרים יום ושעות, ממלאים פרטים, והבקשה נשלחת אליי בוואטסאפ. אישור סופי לפי מקום פנוי.</p>
+      </div>
+
+      <form id="book-form" class="book-card" novalidate>
+        <fieldset class="step">
+          <legend><span class="step-n">1</span>באיזה יום?</legend>
+          <div class="days" id="days" role="radiogroup" aria-label="בחירת יום"></div>
+          <p class="err" id="err-day" hidden>בחרו יום</p>
+        </fieldset>
+
+        <fieldset class="step">
+          <legend><span class="step-n">2</span>באילו שעות?</legend>
+          <div class="slots" id="slots" role="radiogroup" aria-label="בחירת שעות"></div>
+          <p class="err" id="err-slot" hidden>בחרו שעות</p>
+        </fieldset>
+
+        <fieldset class="step">
+          <legend><span class="step-n">3</span>כמה פרטים</legend>
+          <div class="fields">
+            <label class="field">
+              <span>השם שלך</span>
+              <input id="parent" name="parent" type="text" autocomplete="name" required>
+              <em class="err" hidden>נשמח לדעת איך לפנות אליך</em>
+            </label>
+            <label class="field">
+              <span>שם התינוק/ת</span>
+              <input id="baby" name="baby" type="text" required>
+              <em class="err" hidden>מה שם התינוק/ת?</em>
+            </label>
+            <label class="field">
+              <span>גיל</span>
+              <select id="age" name="age" required>
+                <option value="">בחרו גיל</option>
+              </select>
+              <em class="err" hidden>בחרו גיל</em>
+            </label>
+          </div>
+          <label class="check">
+            <input id="first" type="checkbox">
+            <span>זו הפעם הראשונה שלנו בשעת נחת</span>
+          </label>
+          <label class="field">
+            <span>הערה (לא חובה)</span>
+            <textarea id="note" rows="2" placeholder="למשל: ישן בדרך כלל בסביבות 11"></textarea>
+          </label>
+        </fieldset>
+
+        <div class="summary" aria-live="polite">
+          <div>
+            <p class="sum-label">סה״כ לביקור</p>
+            <p class="sum-total" id="sum-total">—</p>
+            <p class="sum-detail" id="sum-detail">בחרו יום ושעות</p>
+          </div>
+          <button class="btn btn-sun btn-lg" type="submit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"></use></svg>שליחת בקשה בוואטסאפ
+          </button>
+        </div>
+      </form>
+
+      <div id="done" class="book-card done" hidden tabindex="-1">
+        <div class="done-head">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"></use></svg>
+          <div>
+            <h3>הבקשה מוכנה בוואטסאפ</h3>
+            <p>שלחו את ההודעה, ואני אאשר לפי מקום פנוי. <a id="wa-again" href="#" target="_blank" rel="noopener">הוואטסאפ לא נפתח? לחצו כאן</a></p>
+          </div>
+        </div>
+        <div class="done-sum" id="done-sum"></div>
+        <div class="pay" id="pay"></div>
+        <button class="btn btn-line" type="button" id="again">בקשה נוספת</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="band">
+    <div class="wrap narrow">
+      <h2>שאלות נפוצות</h2>
+      <details><summary>מה קורה אם התינוק בוכה?</summary><p>אני מרגיעה אותו, ואם צריך, אתם במרחק כמה צעדים. הרבה פעמים מספיק חיבוק קצר מאמא או מאבא, וחוזרים לשחק.</p></details>
+      <details><summary>אפשר להניק או להאכיל באמצע?</summary><p>בטח, בדיוק בשביל זה אתם כאן. ומי שלא רוצה לעצור את העבודה משאיר לי בקבוק מוכן, ואני מאכילה.</p></details>
+      <details><summary>אפשר לעשות שיחות זום?</summary><p>כן, אבל זה בית עם תינוקות ולא חדר ישיבות. לשיחות מומלץ להביא אוזניות.</p></details>
+      <details><summary>איך משלמים?</summary><p>בביט או בפייבוקס, מראש עם אישור ההזמנה. בביקור הראשון משלמים בסוף. אפשר לבטל עד <span data-cfg="cancelHours">18</span> שעות לפני הביקור בלי חיוב.</p></details>
+      <details><summary>איפה זה?</summary><p>בבית שלנו ב<span data-cfg="city">חריש</span>. את הכתובת המדויקת אני שולחת אחרי אישור ההזמנה.</p></details>
+      <details><summary>אפשר להוסיף את האתר למסך הבית?</summary><p>כן. באנדרואיד לוחצים על "התקנה" למטה או בתפריט הדפדפן. באייפון: כפתור השיתוף בספארי ואז "הוספה למסך הבית". מקבלים אייקון של שעת נחת שפותח ישר את השריון.</p></details>
+    </div>
+  </section>
+
+  <section class="install band-white" id="install" hidden>
+    <div class="wrap install-row">
+      <svg class="mark" viewBox="0 0 200 200" aria-hidden="true"><use href="#logo"></use></svg>
+      <div>
+        <strong>שעת נחת על מסך הבית</strong>
+        <p id="install-text">אייקון אחד, ושריון מקום בלחיצה.</p>
+      </div>
+      <button class="btn btn-teal" type="button" id="install-btn">התקנה</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <div>
+      <strong>שעת נחת</strong>
+      <p><span data-cfg="ownerName">אנסטסיה</span> · <span data-cfg="city">חריש</span> · <span id="foot-hours">ימים א׳–ה׳, <bdi dir="ltr">10:00–12:00</bdi></span></p>
+    </div>
+    <div>
+      <p>וואטסאפ: <bdi dir="ltr" data-cfg="phoneDisplay">054-834-0793</bdi></p>
+      <a data-wa="general" href="#" target="_blank" rel="noopener">לשיחה בוואטסאפ</a>
+    </div>
+  </div>
+</footer>
+
+<div class="dock" id="dock">
+  <a class="btn btn-sun" href="#book">לשריון מקום</a>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="0 0 200 200">
+      <polyline points="52,74 90,42 128,74" fill="none" stroke="#f4b728" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"></polyline>
+      <rect x="40" y="88" width="100" height="84" rx="16" fill="currentColor"></rect>
+      <path d="M140 106 h8 a23 23 0 0 1 0 46 h-8" fill="none" stroke="currentColor" stroke-width="13"></path>
+      <path d="M90 150 C68 135 70 116 81 116 C86 116 90 120 90 124 C90 120 94 116 99 116 C110 116 112 135 90 150 Z" fill="#f4b728"></path>
+    </symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8.4 18.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path><path d="M9.2 8.6c.2 2.6 2.4 5 5.2 5.6l1-1.1 1.8.9-.5 1.6c-3.4.2-7-3.2-7.3-6.6l1.6-.6.9 1.8z" fill="currentColor"></path></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 9a15 15 0 0 1 20 0"></path><path d="M5 12.5a10 10 0 0 1 14 0"></path><path d="M8.5 16a5 5 0 0 1 7 0"></path></g><circle cx="12" cy="19.5" r="1.3" fill="currentColor"></circle></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"></path><path d="M16 11h2a2.5 2.5 0 0 1 0 5h-2"></path><path d="M8 3v3M12 3v3"></path></g></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></symbol>
+    <symbol id="i-bottle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v3h-4z"></path><path d="M9 5h6l1 4v10a3 3 0 0 1-3 3h-2a3 3 0 0 1-3-3V9z"></path><path d="M8 12h4M8 15h4"></path></g></symbol>
+    <symbol id="i-friends" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="9" r="3"></circle><circle cx="17" cy="10" r="2.5"></circle><path d="M3 20a5 5 0 0 1 10 0M13.5 20a3.5 3.5 0 0 1 7 0"></path></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></g></symbol>
+  </defs>
+</svg>
+</body>
+</html>
